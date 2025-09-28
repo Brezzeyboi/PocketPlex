@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PocketPlex | Video Player</title>
+    <script src="{{ url_for('static', filename='taillwind.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f0f0f; }
+    </style>
+</head>
+<body class="bg-[#0f0f0f] text-gray-100 flex flex-col min-h-screen">
+
+    <div id="notification" class="hidden fixed bottom-5 right-5 z-50 bg-[#212121]/90 backdrop-blur-sm text-white p-4 rounded-xl shadow-lg border border-gray-700 flex items-center space-x-3">
+         </div>
+
+    <header class="w-full p-4">
+        <div class="container mx-auto">
+            <a href="/" class="text-blue-400 hover:text-blue-300 transition-colors duration-300 text-lg">&larr; Back to Library</a>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center py-8">
+        <div class="container mx-auto px-4 w-full">
+            <div class="max-w-6xl mx-auto bg-black rounded-lg overflow-hidden shadow-2xl shadow-blue-500/10">
+                <video id="video-player" controls autoplay class="w-full aspect-video"></video>
+            </div>
+            <div class="max-w-6xl mx-auto mt-6">
+                <h1 id="movie-title" class="text-3xl md:text-4xl font-bold">Loading movie...</h1>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const movieId = '{{ movie_id }}';
+            const videoElement = document.getElementById('video-player');
+            const titleElement = document.getElementById('movie-title');
+            const notification = document.getElementById('notification');
+            let lastKnownFilename = '';
+            
+            const svgIcon = `<svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>`;
+
+            titleElement.textContent = movieId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const streamUrl = `/static/videos/${movieId}/stream.m3u8`;
+
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(streamUrl);
+                hls.attachMedia(videoElement);
+            } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+                videoElement.src = streamUrl;
+            }
+
+            async function checkStatus() {
+                try {
+                    const response = await fetch('/api/status');
+                    const data = await response.json();
+                    
+                    if ((data.status === 'downloading' || data.status === 'processing') && data.filename && data.filename !== lastKnownFilename) {
+                        lastKnownFilename = data.filename;
+                        notification.innerHTML = `${svgIcon} <div>New movie received: <br><strong class="font-semibold">${data.filename}</strong> is now being processed.</div>`;
+                        notification.classList.remove('hidden');
+                        setTimeout(() => notification.classList.add('hidden'), 6000);
+                    } else if (data.status === 'idle') {
+                        lastKnownFilename = '';
+                    }
+                } catch (error) { console.error('Could not fetch status:', error); }
+            }
+            
+            setInterval(checkStatus, 5000);
+        });
+    </script>
+</body>
+</html>
