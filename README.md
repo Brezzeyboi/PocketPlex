@@ -18,114 +18,101 @@
   <img src="img/Screenshot 2025-09-28 140036.png" alt="PocketPlex Interface" width="800">
 </p>
 
-## 📋 Table of Contents
+<div style="background:#f5f5f5; border-radius:12px; padding:20px; margin:20px 0;">
+<h2>📋 Table of Contents</h2>
+<ul>
+<li>About The Project</li>
+<li>✨ Key Features</li>
+<li>🛠️ Tech Stack</li>
+<li>🚀 Getting Started
+  <ul>
+    <li>Prerequisites</li>
+    <li>Installation & Configuration</li>
+    <li>Running 24/7</li>
+  </ul>
+</li>
+<li>🏗️ How It Works</li>
+<li>📄 License</li>
+</ul>
+</div>
 
-* [About The Project](#about-the-project)
-* [✨ Key Features](#-key-features)
-* [🛠️ Tech Stack](#️-tech-stack)
-* [🚀 Getting Started](#-getting-started)
+<div style="background:#e0f7fa; border-radius:12px; padding:20px; margin:20px 0;">
+<h2>About The Project</h2>
+<p>PocketPlex transforms a standard Android phone into a powerful, low-energy media server. It runs 24/7, automatically fetching new video files from a network source (like a router's USB drive), processing them into web-friendly streaming formats, and serving them through a clean, modern web interface accessible from any device on your network.</p>
+<p>This project solves the problem of wanting a personal media library like Plex or Jellyfin without needing dedicated server hardware.</p>
+</div>
 
-  * [Prerequisites](#prerequisites)
-  * [Installation & Configuration](#installation--configuration)
-* [🏗️ How It Works](#-how-it-works)
-* [📄 License](#-license)
+<div style="background:#fff3e0; border-radius:12px; padding:20px; margin:20px 0;">
+<h2>✨ Key Features</h2>
+<ul>
+<li><strong>Fully Automated Pipeline:</strong> Automatically finds, downloads, and processes new media.</li>
+<li><strong>Efficient HLS Transcoding:</strong> Converts videos to HTTP Live Streaming (HLS) format for fast startups, smooth seeking, and reduced buffering.</li>
+<li><strong>Dynamic Web UI:</strong> Beautiful and responsive frontend built with Flask and Tailwind CSS.</li>
+<li><strong>Live Progress Monitoring:</strong> UI shows real-time download and encoding status.</li>
+<li><strong>Smart Storage Management:</strong> Processes files one-by-one and cleans up original files to save space.</li>
+<li><strong>Energy Efficient:</strong> Low-power ARM processor usage keeps your server always-on without high electricity costs.</li>
+</ul>
+</div>
 
----
+<div style="background:#e8f5e9; border-radius:12px; padding:20px; margin:20px 0;">
+<h2>🛠️ Tech Stack</h2>
+<table>
+<tr><td><strong>Backend</strong></td><td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white">  <img src="https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white"></td></tr>
+<tr><td><strong>Frontend</strong></td><td><img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black"></td></tr>
+<tr><td><strong>Core Tools</strong></td><td><img src="https://img.shields.io/badge/Termux-black"> <img src="https://img.shields.io/badge/Rclone-blue"> <img src="https://img.shields.io/badge/FFmeg-green"></td></tr>
+</table>
+</div>
 
-## About The Project
+<div style="background:#fce4ec; border-radius:12px; padding:20px; margin:20px 0;">
+<h2>🚀 Getting Started</h2>
 
-PocketPlex transforms a standard Android phone into a powerful, low-energy media server. It runs 24/7, automatically fetching new video files from a network source (like a router's USB drive), processing them into web-friendly streaming formats, and serving them through a clean, modern web interface accessible from any device on your network.
+<h3>Prerequisites</h3>
+<ul>
+<li>Android phone with Termux installed</li>
+<li>Network-accessible file source (router with FTP + USB)</li>
+<li>Basic command line familiarity</li>
+</ul>
 
-This project solves the problem of wanting a personal media library like Plex or Jellyfin without needing dedicated server hardware.
-
----
-
-## ✨ Key Features
-
-* **Fully Automated Pipeline:** Automatically finds, downloads, and processes new media.
-* **Efficient HLS Transcoding:** Converts videos to HTTP Live Streaming (HLS) format for fast startups, smooth seeking, and reduced buffering.
-* **Dynamic Web UI:** Beautiful and responsive frontend built with Flask and Tailwind CSS.
-* **Live Progress Monitoring:** UI shows real-time download and encoding status.
-* **Smart Storage Management:** Processes files one-by-one and cleans up original files to save space.
-* **Energy Efficient:** Low-power ARM processor usage keeps your server always-on without high electricity costs.
-
----
-
-## 🛠️ Tech Stack
-
-| Category   | Technology                                                                                                                                                                                                                                                                          |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Backend    | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python\&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask\&logoColor=white)                                                                                                                  |
-| Frontend   | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5\&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css\&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript\&logoColor=black) |
-| Core Tools | Termux (Android Environment), rclone (File Sync), ffmpeg (Video Processing)                                                                                                                                                                                                         |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-* Android phone with Termux installed.
-* Network-accessible file source (e.g., router with FTP server and USB drive).
-* Basic familiarity with command line.
-
-### Installation & Configuration
-
-1. **Clone the repository**
-
-```bash
+<h3>Installation & Configuration</h3>
+<pre>
 git clone https://github.com/Brezzeyboi/PocketPlex.git
 cd PocketPlex
-```
 
-2. **Install Termux dependencies**
-
-```bash
 pkg update && pkg upgrade -y
 pkg install python ffmpeg rclone root-repo
 pkg install libfuse
-```
 
-3. **Install Python libraries**
-
-```bash
 pip install Flask
-```
 
-4. **Configure rclone**
-
-```bash
 rclone config
-```
 
-* Create a new remote (name it `routerftp` or similar).
-* Select FTP type and enter your router's IP, username, and password.
+ <strong>Create a remote (e.g., routerftp) and connect to your router USB</stronge>
+</pre>
 
-5. **Configure the Media Processor**
+<h3>Running 24/7</h3>
+<p>To make PocketPlex run all the time:</p>
+<ol>
+<li><strong>Wake the device:</strong> <code>termux-wake-lock</code></li>
+<li><strong>Start the web server:</strong> <code>python app.py</code> (access via browser: <code>http://&lt;your-phone-ip&gt;:8000</code>)</li>
+<li><strong>Start media processor:</strong> Swipe left → New session → <code>cd PocketPlex</code> → <code>python media_processor.py</code></li>
+<li><strong>Upload new movies:</strong> Use CX File Explorer (phone) or WinSCP (PC). Connect using router IP, username, password, port 21. Drop movies in the folder you set in <code>REMOTE_PATH</code>.</li>
+</ol>
+</div>
 
-* Open `media_processor.py` and set `REMOTE_PATH` to your rclone remote:
+<div style="background:#fffde7; border-radius:12px; padding:20px; margin:20px 0;">
+<h2>🏗️ How It Works</h2>
+<p>[Router with New Movie] → [media_processor.py (rclone sync)] → [Phone Temp Storage] → [ffmpeg (transcode)] → [static/videos] → [app.py (Flask API)] → [Web Browser]</p>
 
-```python
-REMOTE_PATH = "routerftp:/usb1_1/movies"  # IMPORTANT: Change this path
-# For example, the name you kept for the connection in rclone:/ -> if the movies are in the root, use that; if in a folder, use name:/folder.
-```
+<ul>
+<li><strong>Check:</strong> media_processor.py reads config.json and lists files</li>
+<li><strong>Download:</strong> First new file → temp directory</li>
+<li><strong>Process:</strong> ffmpeg generates thumbnail + HLS, updates status.json</li>
+<li><strong>Serve:</strong> app.py serves processed files, live UI updates</li>
+<li><strong>Clean Up:</strong> Deletes original from router and temp from phone</li>
+</ul>
+</div>
 
----
-
-## 🏗️ How It Works
-
-The system is composed of two independent Python scripts that communicate via a shared status file, creating a robust processing pipeline.
-
-[Router with New Movie] -> [media_processor.py (rclone sync)] -> [Phone Temp Storage] -> [ffmpeg (transcode)] -> [static/videos] -> [app.py (Flask API)] -> [Web Browser]
-
-* **Check:** The media_processor.py script uses rclone to list files on the remote source.
-* **Download:** It downloads the first new file it finds to a temporary directory on the phone.
-* **Process:** It uses ffmpeg to generate a thumbnail and convert the local file to an HLS stream, updating a status.json file with its progress.
-* **Serve:** The app.py server reads the static/videos directory to populate the library and reads status.json to provide live updates to the web UI.
-* **Clean Up:** Once a file is successfully processed, the script deletes the original from the router and the temporary file from the phone, ready for the next one.
-
----
-
-## 📄 License
-
-Distributed under the MIT License.
+<div style="background:#e1f5fe; border-radius:12px; padding:20px; margin:20px 0;">
+<h2>📄 License</h2>
+<p>Distributed under the MIT License.</p>
+</div>
