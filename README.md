@@ -86,7 +86,7 @@ pip install Flask
 
 rclone config
 
- <strong>Create a remote (e.g., routerftp) and connect to your router USB</stronge>
+ <strong>#Create a remote (e.g., routerftp) and connect to your router USB</stronge>
 </pre>
 
 <h3>Running 24/7</h3>
